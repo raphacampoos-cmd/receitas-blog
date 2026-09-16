@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block head_extra %}
+<script type="application/ld+json">
+{{ schema_json | safe }}
+</script>
+{% endblock %}
+{% block content %}
+<div class="breadcrumb">
+  <a href="{{ site.base }}/">Receitas</a> /
+  <a href="{{ site.base }}/categorias/{{ r.categoria_slug }}.html">{{ r.categoria }}</a> /
+  {{ r.title }}
+</div>
+
+<div class="receita-header">
+  <span class="tag">{{ r.categoria }}</span>
+  <h1>{{ r.title }}</h1>
+  <p class="resumo">{{ r.resumo }}</p>
+</div>
+
+<div class="receita-meta">
+  <div><strong>{{ r.tempo_preparo }}</strong>Tempo de preparo</div>
+  <div><strong>{{ r.porcoes }}</strong>Rendimento</div>
+  <div><strong>{{ r.dificuldade }}</strong>Dificuldade</div>
+  <div><strong>{{ r.data_publicacao }}</strong>Publicado em</div>
+</div>
+
+{% if r.conteudo_html %}
+<div class="receita-intro">{{ r.conteudo_html | safe }}</div>
+{% endif %}
+
+<div class="ad-slot">Espaço reservado para anúncio</div>
+
+<div class="receita-conteudo">
+  <div class="bloco">
+    <h2>Ingredientes</h2>
+    {% for grupo in r.ingredientes %}
+      {% if grupo.grupo %}<h3 class="subgrupo">{{ grupo.grupo }}</h3>{% endif %}
+      <ul>
+        {% for ing in grupo.itens %}<li>{{ ing }}</li>{% endfor %}
+      </ul>
+    {% endfor %}
+  </div>
+  <div class="bloco">
+    <h2>Modo de preparo</h2>
+    <ol>
+      {% for passo in r.modo_preparo %}<li>{{ passo }}</li>{% endfor %}
+    </ol>
+    {% if r.dicas %}
+    <h2>Dicas</h2>
+    <ul>
+      {% for dica in r.dicas %}<li>{{ dica }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+</div>
+
+<p class="aviso">As informações desta receita têm caráter informativo e não substituem orientação nutricional profissional.</p>
+
+<div class="ad-slot">Espaço reservado para anúncio (final do artigo)</div>
+
+{% if relacionadas %}
+<section class="relacionadas">
+  <h2>Você também vai gostar</h2>
+  <div class="grid-receitas">
+    {% for r2 in relacionadas %}
+    <a class="card-receita" href="{{ site.base }}/receitas/{{ r2.slug }}.html">
+      <div class="thumb">{{ r2.emoji or '🍽️' }}</div>
+      <div class="info">
+        <div class="meta">{{ r2.categoria }} · {{ r2.tempo_preparo }}</div>
+        <h3>{{ r2.title }}</h3>
+        <div class="resumo">{{ r2.resumo }}</div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+{% endblock %}

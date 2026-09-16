@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <h1>Receitas rápidas para o dia a dia</h1>
+  <p>Receitas simples, com poucos ingredientes e passo a passo direto ao ponto — novas toda semana.</p>
+</section>
+
+{% if destaque %}
+<a class="destaque" href="{{ site.base }}/receitas/{{ destaque.slug }}.html">
+  <div class="destaque-emoji">{{ destaque.emoji or '🍽️' }}</div>
+  <div class="destaque-info">
+    <span class="tag">Receita do dia · {{ destaque.categoria }}</span>
+    <h2>{{ destaque.title }}</h2>
+    <p>{{ destaque.resumo }}</p>
+    <span class="destaque-meta">{{ destaque.tempo_preparo }} · {{ destaque.dificuldade }}</span>
+  </div>
+</a>
+{% endif %}
+
+<div class="ad-slot">Espaço reservado para anúncio (topo)</div>
+
+<section>
+  <div class="grid-receitas" data-grid-receitas>
+    {% for r in receitas %}
+    <a class="card-receita" data-card-receita data-busca="{{ r.title }} {{ r.categoria }} {{ r.resumo }}" href="{{ site.base }}/receitas/{{ r.slug }}.html">
+      <div class="thumb">{{ r.emoji or '🍽️' }}</div>
+      <div class="info">
+        <div class="meta">{{ r.categoria }} · {{ r.tempo_preparo }}</div>
+        <h3>{{ r.title }}</h3>
+        <div class="resumo">{{ r.resumo }}</div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  <p data-busca-vazia hidden class="busca-vazia">Nenhuma receita encontrada para essa busca. Tente outro termo.</p>
+</section>
+
+<div class="ad-slot">Espaço reservado para anúncio (rodapé)</div>
+{% endblock %}

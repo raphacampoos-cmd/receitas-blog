@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="breadcrumb"><a href="{{ site.base }}/">Receitas</a> / {{ categoria.nome }}</div>
+
+<section class="hero">
+  <h1>{{ categoria.nome }}</h1>
+  <p>{{ receitas | length }} receita{{ "s" if receitas|length != 1 else "" }} de {{ categoria.nome.lower() }}.</p>
+</section>
+
+<div class="ad-slot">Espaço reservado para anúncio</div>
+
+<div class="grid-receitas">
+  {% for r in receitas %}
+  <a class="card-receita" href="{{ site.base }}/receitas/{{ r.slug }}.html">
+    <div class="thumb">{{ r.emoji or '🍽️' }}</div>
+    <div class="info">
+      <div class="meta">{{ r.categoria }} · {{ r.tempo_preparo }}</div>
+      <h3>{{ r.title }}</h3>
+      <div class="resumo">{{ r.resumo }}</div>
+    </div>
+  </a>
+  {% endfor %}
+</div>
+{% endblock %}
