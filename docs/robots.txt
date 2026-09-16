@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://raphacampoos-cmd.github.io/receitas-blog/sitemap.xml

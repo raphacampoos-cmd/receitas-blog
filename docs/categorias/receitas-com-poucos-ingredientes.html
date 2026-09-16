@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Receitas com poucos ingredientes | Receita Rápida</title>
+<meta name="description" content="Receitas de receitas com poucos ingredientes — Receita Rápida.">
+<link rel="canonical" href="https://raphacampoos-cmd.github.io/receitas-blog/categorias/receitas-com-poucos-ingredientes.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Receitas com poucos ingredientes">
+<meta property="og:description" content="Receitas de receitas com poucos ingredientes — Receita Rápida.">
+<meta property="og:url" content="https://raphacampoos-cmd.github.io/receitas-blog/categorias/receitas-com-poucos-ingredientes.html">
+<meta property="og:site_name" content="Receita Rápida">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👨‍🍳</text></svg>">
+<link rel="stylesheet" href="/receitas-blog/static/css/style.css">
+<link rel="alternate" type="application/rss+xml" title="Receita Rápida" href="/receitas-blog/rss.xml">
+
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-top">
+    <a class="logo" href="/receitas-blog/">👨‍🍳<span class="logo-texto">Receita<em>Rápida</em></span></a>
+    <form class="busca" action="/receitas-blog/" method="get" role="search">
+      <input type="search" name="busca" id="campo-busca" placeholder="Procure uma receita, um ingrediente...">
+      <button type="submit">Procurar</button>
+    </form>
+  </div>
+  <nav class="categorias-nav">
+    <div class="container categorias-nav-inner">
+      <a href="/receitas-blog/">Todas as receitas</a>
+      
+      <a href="/receitas-blog/categorias/receitas-fit.html">Receitas fit</a>
+      
+      <a href="/receitas-blog/categorias/receitas-com-poucos-ingredientes.html">Receitas com poucos ingredientes</a>
+      
+      <a href="/receitas-blog/categorias/salgados-rapidos.html">Salgados rápidos</a>
+      
+      <a href="/receitas-blog/categorias/sobremesas.html">Sobremesas</a>
+      
+      <a href="/receitas-blog/categorias/massas.html">Massas</a>
+      
+      <a href="/receitas-blog/categorias/lanches.html">Lanches</a>
+      
+      <a href="/receitas-blog/categorias/bebidas-e-sucos.html">Bebidas e sucos</a>
+      
+      <a href="/receitas-blog/categorias/pratos-unicos.html">Pratos únicos</a>
+      
+      <a href="/receitas-blog/categorias/cafe-da-manha.html">Café da manhã</a>
+      
+      <a href="/receitas-blog/categorias/doces-rapidos.html">Doces rápidos</a>
+      
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="container">
+    
+<div class="breadcrumb"><a href="/receitas-blog/">Receitas</a> / Receitas com poucos ingredientes</div>
+
+<section class="hero">
+  <h1>Receitas com poucos ingredientes</h1>
+  <p>1 receita de receitas com poucos ingredientes.</p>
+</section>
+
+<div class="ad-slot">Espaço reservado para anúncio</div>
+
+<div class="grid-receitas">
+  
+  <a class="card-receita" href="/receitas-blog/receitas/salada-de-grao-de-bico-poucos-ingredientes.html">
+    <div class="thumb">🥗</div>
+    <div class="info">
+      <div class="meta">Receitas com poucos ingredientes · 10 minutos</div>
+      <h3>Salada de Grão-de-Bico com 5 Ingredientes</h3>
+      <div class="resumo">Salada fria de grão-de-bico com tomate, cebola roxa e limão, pronta em 10 minutos para servir como prato leve ou acompanhamento.</div>
+    </div>
+  </a>
+  
+</div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div>© 2026 Receita Rápida — Receitas rápidas e práticas para o seu dia a dia.</div>
+    <div class="links">
+      <a href="/receitas-blog/sobre.html">Sobre</a>
+      <a href="/receitas-blog/contato.html">Contato</a>
+      <a href="/receitas-blog/privacidade.html">Política de Privacidade</a>
+      <a href="/receitas-blog/cookies.html">Política de Cookies</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Busca simples no lado do cliente: filtra os cards da página inicial.
+// Em qualquer outra página, o formulário apenas leva para "/?busca=...".
+(function () {
+  var params = new URLSearchParams(window.location.search);
+  var termoUrl = params.get("busca");
+  var campo = document.getElementById("campo-busca");
+  var grid = document.querySelector("[data-grid-receitas]");
+  if (termoUrl && campo) { campo.value = termoUrl; }
+
+  function normaliza(s) {
+    return (s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+  }
+
+  function filtrar(termo) {
+    if (!grid) return;
+    var cards = grid.querySelectorAll("[data-card-receita]");
+    var termoNorm = normaliza(termo);
+    var visiveis = 0;
+    cards.forEach(function (card) {
+      var alvo = normaliza(card.getAttribute("data-busca"));
+      var visivel = !termoNorm || alvo.indexOf(termoNorm) !== -1;
+      card.style.display = visivel ? "" : "none";
+      if (visivel) visiveis++;
+    });
+    var aviso = document.querySelector("[data-busca-vazia]");
+    if (aviso) aviso.hidden = visiveis !== 0;
+  }
+
+  if (grid && termoUrl) { filtrar(termoUrl); }
+
+  if (campo && grid) {
+    campo.addEventListener("input", function () { filtrar(campo.value); });
+    var form = campo.closest("form");
+    if (form) {
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        filtrar(campo.value);
+      });
+    }
+  }
+})();
+</script>
+
+</body>
+</html>
